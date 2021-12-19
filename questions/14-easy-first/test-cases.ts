@@ -4,7 +4,7 @@ import { Equal, Expect } from '@type-challenges/utils'
 type First<T extends any[]> = T[number] extends never ? never : T[0]
 
 /**
- * T为数组或元祖类型时，T[number]即T[keyof T]即所有item值的类型的集合
+ * T为数组或元祖类型时，T[number]即T[keyof T]即所有item值的类型的union type
  * T[number] extends never ? 可用于判断T是否为空
  */
 
