@@ -1,8 +1,20 @@
 import { Equal, Expect } from '@type-challenges/utils'
 
+// type Includes<T extends any[], U> = U extends T[number] ? true : false
+type Includes<T extends any[], U> = T extends [infer V, ...infer R]
+  ? Equal<V, U> extends true
+    ? true
+    : Includes<R, U>
+  : false
+
+/**
+ * 利用infer构造first item，和剩余item
+ * 递归调用
+ */
+
 type cases = [
   Expect<Equal<Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Kars'>, true>>,
-  Expect<Equal<Includes<['Kars', 'Esidisi','Wamuu', 'Santana'], 'Dio'>, false>>,
+  Expect<Equal<Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'>, false>>,
   Expect<Equal<Includes<[1, 2, 3, 5, 6, 7], 7>, true>>,
   Expect<Equal<Includes<[1, 2, 3, 5, 6, 7], 4>, false>>,
   Expect<Equal<Includes<[1, 2, 3], 2>, true>>,
@@ -12,5 +24,5 @@ type cases = [
   Expect<Equal<Includes<[true, 2, 3, 5, 6, 7], boolean>, false>>,
   Expect<Equal<Includes<[false, 2, 3, 5, 6, 7], false>, true>>,
   Expect<Equal<Includes<[{ a: 'A' }], { readonly a: 'A' }>, false>>,
-  Expect<Equal<Includes<[{ readonly a: 'A' }], { a: 'A' }>, false>>,
+  Expect<Equal<Includes<[{ readonly a: 'A' }], { a: 'A' }>, false>>
 ]

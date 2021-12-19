@@ -1,5 +1,7 @@
 import { Equal, Expect } from '@type-challenges/utils'
 
+type If<B extends true | false, T, F> = B extends true ? T : F
+
 type cases = [
   Expect<Equal<If<true, 'a', 'b'>, 'a'>>,
   Expect<Equal<If<false, 'a', 2>, 2>>,
